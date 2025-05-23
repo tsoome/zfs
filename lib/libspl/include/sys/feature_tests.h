@@ -25,8 +25,8 @@
  * Use is subject to license terms.
  */
 
-#ifndef _SYS_FEATURE_TESTS_H
-#define	_SYS_FEATURE_TESTS_H
+#ifndef _LIBSPL_SYS_FEATURE_TESTS_H
+#define	_LIBSPL_SYS_FEATURE_TESTS_H
 
 #define	____cacheline_aligned
 
@@ -38,4 +38,4 @@
 #endif
 #endif
 
-#endif
+#endif /* _LIBSPL_SYS_FEATURE_TESTS_H */

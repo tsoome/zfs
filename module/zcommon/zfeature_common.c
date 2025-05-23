@@ -176,7 +176,8 @@ struct zfs_mod_supported_features {
 struct zfs_mod_supported_features *
 zfs_mod_list_supported(const char *scope)
 {
-#if defined(__FreeBSD__) || defined(_KERNEL) || defined(LIB_ZPOOL_BUILD)
+#if defined(__FreeBSD__) || defined(__illumos__) || \
+	defined(_KERNEL) || defined(LIB_ZPOOL_BUILD)
 	(void) scope;
 	return (NULL);
 #else
@@ -237,7 +238,8 @@ nomem:
 void
 zfs_mod_list_supported_free(struct zfs_mod_supported_features *list)
 {
-#if !defined(__FreeBSD__) && !defined(_KERNEL) && !defined(LIB_ZPOOL_BUILD)
+#if !defined(__FreeBSD__) && !defined(__illumos__) && \
+	!defined(_KERNEL) && !defined(LIB_ZPOOL_BUILD)
 	if (list) {
 		tdestroy(list->tree, free);
 		free(list);
@@ -248,6 +250,7 @@ zfs_mod_list_supported_free(struct zfs_mod_supported_features *list)
 }
 
 #if !defined(_KERNEL) && !defined(LIB_ZPOOL_BUILD)
+#if !(defined(__FreeBSD__) || defined(__illumos__))
 static boolean_t
 zfs_mod_supported_impl(const char *scope, const char *name, const char *sysfs)
 {
@@ -259,6 +262,7 @@ zfs_mod_supported_impl(const char *scope, const char *name, const char *sysfs)
 	else
 		return (B_FALSE);
 }
+#endif
 
 boolean_t
 zfs_mod_supported(const char *scope, const char *name,
@@ -270,6 +274,9 @@ zfs_mod_supported(const char *scope, const char *name,
 		return (sfeatures->all_features ||
 		    tfind(name, &sfeatures->tree, STRCMP));
 
+#if defined(__FreeBSD__) || defined(__illumos__)
+	supported = B_FALSE;
+#else
 	/*
 	 * Check both the primary and alternate sysfs locations to determine
 	 * if the required functionality is supported.
@@ -291,6 +298,7 @@ zfs_mod_supported(const char *scope, const char *name,
 			supported = B_TRUE;
 		}
 	}
+#endif
 
 	return (supported);
 }
@@ -311,7 +319,8 @@ zfs_mod_supported_feature(const char *name,
 	 * that all features are supported.
 	 */
 
-#if defined(_KERNEL) || defined(LIB_ZPOOL_BUILD) || defined(__FreeBSD__)
+#if defined(_KERNEL) || defined(LIB_ZPOOL_BUILD) || \
+	defined(__FreeBSD__) || defined(__illumos__)
 	(void) name, (void) sfeatures;
 	return (B_TRUE);
 #else

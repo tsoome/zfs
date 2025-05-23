@@ -347,7 +347,7 @@ extern void cv_broadcast(kcondvar_t *cv);
 #define	tsd_set(k, v) pthread_setspecific(k, v)
 #define	tsd_create(kp, d) pthread_key_create((pthread_key_t *)kp, d)
 #define	tsd_destroy(kp) /* nothing */
-#ifdef __FreeBSD__
+#if defined(__FreeBSD__) || defined(__illumos__)
 typedef off_t loff_t;
 #endif
 
@@ -709,8 +709,10 @@ extern int kmem_scnprintf(char *restrict str, size_t size,
 extern int ddi_strtoull(const char *str, char **nptr, int base,
     u_longlong_t *result);
 
+#ifndef __illumos__
 typedef struct utsname	utsname_t;
 extern utsname_t *utsname(void);
+#endif
 
 /* ZFS Boot Related stuff. */
 

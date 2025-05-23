@@ -587,7 +587,7 @@ AC_DEFUN([ZFS_AC_DEFAULT_PACKAGE], [
 		elif test -f /etc/redhat-release ; then
 			VENDOR=redhat ;
 		else
-			VENDOR= ;
+			VENDOR=$(uname -o);
 		fi],
 		[ test "x${with_vendor}" != x],[
 			VENDOR="$with_vendor" ],

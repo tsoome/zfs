@@ -106,6 +106,7 @@ getlrtime(void)
 	    ((uint64_t)tv.tv_usec * NSEC_PER_USEC));
 }
 
+#ifndef __illumos__
 static inline hrtime_t
 gethrtime(void)
 {
@@ -113,5 +114,6 @@ gethrtime(void)
 	(void) clock_gettime(CLOCK_MONOTONIC, &ts);
 	return ((((uint64_t)ts.tv_sec) * NANOSEC) + ts.tv_nsec);
 }
+#endif
 
 #endif /* _LIBSPL_SYS_TIME_H */

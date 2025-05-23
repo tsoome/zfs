@@ -20,42 +20,15 @@
  *
  * CDDL HEADER END
  */
+/*
+ * Copyright (c) 2010, Oracle and/or its affiliates. All rights reserved.
+ */
 
-#ifndef	__SYS_STDTYPES_H
-#define	__SYS_STDTYPES_H
+#ifndef _LIBSPL_SYS_STAT_H
+#define	_LIBSPL_SYS_STAT_H
 
-#ifndef __illumos__
-typedef enum {
-	B_FALSE = 0,
-	B_TRUE = 1
-} boolean_t;
-#endif
+#include_next <sys/stat.h>
 
-typedef unsigned char		uchar_t;
-typedef unsigned short		ushort_t;
-typedef unsigned int		uint_t;
-typedef unsigned long		ulong_t;
-typedef unsigned long long	u_longlong_t;
-typedef long long		longlong_t;
+#define	fstat64_blk fstat64
 
-typedef longlong_t		offset_t;
-typedef u_longlong_t		u_offset_t;
-typedef u_longlong_t		len_t;
-#ifndef __illumos__
-typedef longlong_t		diskaddr_t;
-#endif
-
-typedef ulong_t			pgcnt_t;	/* number of pages */
-typedef long			spgcnt_t;	/* signed number of pages */
-
-typedef short			pri_t;
-typedef ushort_t		o_mode_t;	/* old file attribute type */
-
-#ifndef __illumos__
-typedef int			major_t;
-typedef int			minor_t;
-#endif
-
-typedef short			index_t;
-
-#endif	/* __SYS_STDTYPES_H */
+#endif /* _LIBSPL_SYS_STAT_H */

@@ -28,7 +28,11 @@
 #ifndef _SOL_SYS_INTTYPES_H
 #define	_SOL_SYS_INTTYPES_H
 
+#ifdef __illumos__
+#include_next <sys/inttypes.h>
+#else
 #include <inttypes.h>
+#endif
 
 #define	_INT64_TYPE
 

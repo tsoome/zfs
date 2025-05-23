@@ -47,6 +47,12 @@ extern "C" {
 #define	__x86
 #endif
 
+/* Needed for illumos headers */
+#define	_LONG_LONG_LTOH
+#define	_BIT_FIELDS_LTOH
+#define	_CHAR_IS_SIGNED
+#define	_MAX_ALIGNMENT_TYPE	long double
+
 #if defined(_ILP32)
 /* x32-specific defines; careful to *not* define _LP64 here */
 #else
@@ -72,6 +78,12 @@ extern "C" {
 #if !defined(__x86)
 #define	__x86
 #endif
+
+/* Needed for illumos headers */
+#define	_LONG_LONG_LTOH
+#define	_BIT_FIELDS_LTOH
+#define	_CHAR_IS_SIGNED
+#define	_MAX_ALIGNMENT_TYPE	long
 
 #if !defined(_ILP32)
 #define	_ILP32

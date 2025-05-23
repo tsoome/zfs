@@ -64,6 +64,9 @@ typedef enum zfs_uio_seg {
 
 #elif defined(__FreeBSD__)
 typedef enum uio_seg  zfs_uio_seg_t;
+#elif defined(__illumos__)
+typedef enum uio_seg  zfs_uio_seg_t;
+#undef uio_loffset
 #endif
 
 typedef struct zfs_uio {

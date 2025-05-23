@@ -197,7 +197,7 @@ pool_list_refresh(zpool_list_t *zlp)
 		for (zpool_node_t *node = uu_avl_first(zlp->zl_avl);
 		    node != NULL; node = uu_avl_next(zlp->zl_avl, node)) {
 			boolean_t missing;
-			zpool_refresh_stats(node->zn_handle, &missing);
+			(void) zpool_refresh_stats(node->zn_handle, &missing);
 			navail += !missing;
 			node->zn_last_refresh = zlp->zl_last_refresh;
 		}
@@ -222,7 +222,7 @@ pool_list_refresh(zpool_list_t *zlp)
 
 		/* Refresh and remove if necessary. */
 		boolean_t missing;
-		zpool_refresh_stats(node->zn_handle, &missing);
+		(void) zpool_refresh_stats(node->zn_handle, &missing);
 		if (missing) {
 			uu_avl_remove(zlp->zl_avl, node);
 			zpool_close(node->zn_handle);
@@ -608,7 +608,7 @@ for_each_vdev_run_cb(void *zhp_data, nvlist_t *nv, void *cb_vcdl)
 	update_vdev_config_dev_sysfs_path(nv, path,
 	    ZPOOL_CONFIG_VDEV_ENC_SYSFS_PATH);
 
-	nvlist_lookup_string(nv, ZPOOL_CONFIG_VDEV_ENC_SYSFS_PATH,
+	(void) nvlist_lookup_string(nv, ZPOOL_CONFIG_VDEV_ENC_SYSFS_PATH,
 	    &vdev_enc_sysfs_path);
 
 	/* Spares show more than once if they're in use, so skip if exists */
@@ -715,7 +715,7 @@ all_pools_for_each_vdev_run(int argc, char **argv, char *cmd,
 	vcdl->g_zfs = g_zfs;
 
 	/* Gather our list of all vdevs in all pools */
-	for_each_pool(argc, argv, B_TRUE, NULL, ZFS_TYPE_POOL,
+	(void) for_each_pool(argc, argv, B_TRUE, NULL, ZFS_TYPE_POOL,
 	    B_FALSE, all_pools_for_each_vdev_gather_cb, vcdl);
 
 	/* Run command on all vdevs in all pools */

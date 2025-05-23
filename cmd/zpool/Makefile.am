@@ -19,6 +19,11 @@ zpool_SOURCES += \
 	%D%/os/freebsd/zpool_vdev_os.c
 endif
 
+if BUILD_ILLUMOS
+zpool_SOURCES += \
+	%D%/os/illumos/zpool_vdev_os.c
+endif
+
 if BUILD_LINUX
 zpool_SOURCES += \
 	%D%/os/linux/zpool_vdev_os.c
